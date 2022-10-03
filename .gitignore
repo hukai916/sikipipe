@@ -1,0 +1,6 @@
+.nextflow.*
+res_*/*
+results/*
+test/*
+work/*
+null/*
