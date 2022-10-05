@@ -69,8 +69,10 @@ include { CRISPRVARIANTS as CRISPRVARIANTS_UMI_1 } from '../modules/local/crispr
 include { CRISPRVARIANTS as CRISPRVARIANTS_UMI_5 } from '../modules/local/crisprvariants'
 include { CRISPRVARIANTS as CRISPRVARIANTS_BWA_UMI_1 } from '../modules/local/crisprvariants'
 include { CRISPRVARIANTS as CRISPRVARIANTS_BWA_UMI_5 } from '../modules/local/crisprvariants'
-
-
+include { INSERT_STAT as INSERT_STAT_BLAT_1      } from '../modules/local/insert_stat'
+include { INSERT_STAT as INSERT_STAT_BLAT_5      } from '../modules/local/insert_stat'
+include { INSERT_STAT as INSERT_STAT_BWA_1       } from '../modules/local/insert_stat'
+include { INSERT_STAT as INSERT_STAT_BWA_5       } from '../modules/local/insert_stat'
 
 include { MAP_LOCUS                   } from '../modules/local/map_locus'
 include { CLASSIFY_INDEL              } from '../modules/local/classify_indel'
@@ -301,6 +303,26 @@ workflow SIKIPIPE {
       "05b_crisprvariants_bwa_umi_5"
     )
 
+    // MODULE: large insert stat
+    INSERT_STAT_BLAT_1 (
+      BLAT_UMI_1.out.blat_bam_tuned,
+      "06a_large_insert_stat_blat_umi_1"
+    )
+
+    INSERT_STAT_BLAT_5 (
+      BLAT_UMI_5.out.blat_bam_tuned,
+      "06a_large_insert_stat_blat_umi_5"
+    )
+
+    INSERT_STAT_BWA_1 (
+      BWA_UMI_1.out.bam,
+      "06a_large_insert_stat_bwa_umi_1"
+    )
+
+    INSERT_STAT_BWA_5 (
+      BWA_UMI_5.out.bam,
+      "06a_large_insert_stat_bwa_umi_5"
+    )
 
     // MODULE: read length distribution within umi group
     // READ_LENGTH_DIST_WITHIN_UMI_GROUP (

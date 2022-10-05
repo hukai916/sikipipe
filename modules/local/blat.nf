@@ -2,7 +2,7 @@ process BLAT {
     tag "$meta.id"
     label 'process_low'
 
-    container "hukai916/miniconda3_blat:0.1"
+    container "hukai916/miniconda3_blat:0.2"
 
     input:
     tuple val(meta), path(reads)
@@ -43,12 +43,19 @@ process BLAT {
       samtools sort ${outdir}/blat_bam/${prefix}.header.sam -o ${outdir}/blat_bam/${prefix}.bam
       samtools index ${outdir}/blat_bam/${prefix}.bam
 
-      # tweak BAM to add seq and qual:
       ## hard clip to soft clip:
       samtools view -h ${outdir}/blat_bam/${prefix}.bam | awk -F'\t' -v OFS='\t' 'NR>=4 {gsub(/H/, "S", \$6)} 1' | samtools view -o ${outdir}/blat_bam_tuned/${prefix}.soft.bam
+
+      # tweak BAM to add seq and qual:
+
+      ## version2: biopython
+      tweak_blat_bam.py ${outdir}/blat_bam_tuned/${prefix}.soft.bam $reads ${outdir}/blat_bam_tuned/${prefix}.tuned.sam
+      samtools view ${outdir}/blat_bam_tuned/${prefix}.tuned.sam -o ${outdir}/blat_bam_tuned/${prefix}.tuned.bam
+
+      ## version1: can not reverse complement reads if flag contains 16, this leads to plotting issue for CrisprVariants because the seq portion in BAM should be reverse complemented if 16.
       ## add seq and qual:
-      zcat < $reads | awk -v ORS="" '{if (NR%4 == 0) {print \$0"\\n"} else {print \$0"\t"} }' > ${outdir}/blat_bam_tuned/${prefix}.fastq.tsv
-      samtools view -h ${outdir}/blat_bam_tuned/${prefix}.soft.bam | awk 'BEGIN{FS=OFS="\t"} NR==FNR { seq_dict[substr(\$1, 2)] = \$2; qual_dict[substr(\$1, 2)] = \$4; next } { if (FNR < 4) {print \$0} else { if (\$1 in seq_dict) { \$10 = seq_dict[\$1]; \$11 = qual_dict[\$1]; print \$0 } } } ' ${outdir}/blat_bam_tuned/${prefix}.fastq.tsv - | samtools view -o ${outdir}/blat_bam_tuned/${prefix}.tuned.bam
+      #zcat < $reads | awk -v ORS="" '{if (NR%4 == 0) {print \$0"\\n"} else {print \$0"\t"} }' > ${outdir}/blat_bam_tuned/${prefix}.fastq.tsv
+      #samtools view -h ${outdir}/blat_bam_tuned/${prefix}.soft.bam | awk 'BEGIN{FS=OFS="\t"} NR==FNR { seq_dict[substr(\$1, 2)] = \$2; qual_dict[substr(\$1, 2)] = \$4; next } { if (FNR < 4) {print \$0} else { if (\$1 in seq_dict) { \$10 = seq_dict[\$1]; \$11 = qual_dict[\$1]; print \$0 } } } ' ${outdir}/blat_bam_tuned/${prefix}.fastq.tsv - | samtools view -o ${outdir}/blat_bam_tuned/${prefix}.tuned.bam
 
       cat <<-END_VERSIONS > versions.yml
       "${task.process}":

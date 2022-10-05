@@ -140,3 +140,21 @@
 2022-10-01 23:37:49	5.9s	elegant_morse	OK	fcd730f407c8a106719c70234bdd6514	a515e2cd-70e4-43b1-9e52-6142971025b8	nextflow run main.nf -c conf/test.config -profile docker -resume
 2022-10-01 23:42:56	7s	tiny_northcutt	OK	fcd730f407c8a106719c70234bdd6514	a515e2cd-70e4-43b1-9e52-6142971025b8	nextflow run main.nf -c conf/test.config -profile docker -resume
 2022-10-01 23:50:21	29m 2s	desperate_woese	OK	fcd730f407c8a106719c70234bdd6514	a515e2cd-70e4-43b1-9e52-6142971025b8	nextflow run main.nf -c conf/test1.config -profile docker -resume
+2022-10-03 14:52:03	36.4s	lethal_ride	ERR	fcd730f407c8a106719c70234bdd6514	a515e2cd-70e4-43b1-9e52-6142971025b8	nextflow run main.nf -c conf/test.config -profile docker -resume
+2022-10-03 14:53:01	29.8s	irreverent_ramanujan	ERR	fcd730f407c8a106719c70234bdd6514	a515e2cd-70e4-43b1-9e52-6142971025b8	nextflow run main.nf -c conf/test.config -profile docker -resume
+2022-10-03 14:54:02	36.4s	agitated_venter	ERR	fcd730f407c8a106719c70234bdd6514	a515e2cd-70e4-43b1-9e52-6142971025b8	nextflow run main.nf -c conf/test.config -profile docker -resume
+2022-10-03 14:55:13	14m 4s	kickass_magritte	ERR	fcd730f407c8a106719c70234bdd6514	a515e2cd-70e4-43b1-9e52-6142971025b8	nextflow run main.nf -c conf/test.config -profile docker -resume
+2022-10-03 15:25:12	24m 11s	cheeky_pasteur	OK	fcd730f407c8a106719c70234bdd6514	a515e2cd-70e4-43b1-9e52-6142971025b8	nextflow run main.nf -c conf/test.config -profile docker -resume
+2022-10-03 23:50:56	-	condescending_jang	-	fcd730f407c8a106719c70234bdd6514	a515e2cd-70e4-43b1-9e52-6142971025b8	nextflow run main.nf -c conf/test.config -profile docker -resume
+2022-10-03 23:51:56	-	exotic_galileo	-	fcd730f407c8a106719c70234bdd6514	a515e2cd-70e4-43b1-9e52-6142971025b8	nextflow run main.nf -c conf/test.config -profile docker -resume
+2022-10-03 23:52:17	13m 33s	awesome_ride	ERR	fcd730f407c8a106719c70234bdd6514	a515e2cd-70e4-43b1-9e52-6142971025b8	nextflow run main.nf -c conf/test.config -profile docker -resume
+2022-10-04 00:06:24	39.8s	exotic_lorenz	ERR	fcd730f407c8a106719c70234bdd6514	a515e2cd-70e4-43b1-9e52-6142971025b8	nextflow run main.nf -c conf/test.config -profile docker -resume
+2022-10-04 09:28:15	9m 8s	insane_tesla	OK	fcd730f407c8a106719c70234bdd6514	a515e2cd-70e4-43b1-9e52-6142971025b8	nextflow run main.nf -c conf/test.config -profile docker -resume
+2022-10-04 11:04:44	6.9s	furious_austin	OK	fcd730f407c8a106719c70234bdd6514	a515e2cd-70e4-43b1-9e52-6142971025b8	nextflow run main.nf -c conf/test.config -profile docker -resume
+2022-10-04 14:47:06	8.5s	focused_swanson	OK	fcd730f407c8a106719c70234bdd6514	a515e2cd-70e4-43b1-9e52-6142971025b8	nextflow run main.nf -c conf/test.config -profile docker -resume
+2022-10-04 14:53:29	6.4s	hopeful_bhaskara	OK	fcd730f407c8a106719c70234bdd6514	a515e2cd-70e4-43b1-9e52-6142971025b8	nextflow run main.nf -c conf/test.config -profile docker -resume
+2022-10-04 14:57:41	-	naughty_crick	-	fcd730f407c8a106719c70234bdd6514	a515e2cd-70e4-43b1-9e52-6142971025b8	nextflow run main.nf -c conf/test.config -profile docker -resume
+2022-10-04 15:00:57	-	golden_plateau	-	fcd730f407c8a106719c70234bdd6514	a515e2cd-70e4-43b1-9e52-6142971025b8	nextflow run main.nf -c conf/test.config -profile docker -resume
+2022-10-04 15:50:34	-	gloomy_bell	-	fcd730f407c8a106719c70234bdd6514	a515e2cd-70e4-43b1-9e52-6142971025b8	nextflow run main.nf -c conf/test.config -profile docker -resume
+2022-10-04 20:52:35	15m 38s	loving_agnesi	ERR	fcd730f407c8a106719c70234bdd6514	a515e2cd-70e4-43b1-9e52-6142971025b8	nextflow run main.nf -c conf/test.config -profile docker -resume
+2022-10-04 21:22:38	1m 12s	special_mcnulty	OK	fcd730f407c8a106719c70234bdd6514	a515e2cd-70e4-43b1-9e52-6142971025b8	nextflow run main.nf -c conf/test.config -profile docker -resume
