@@ -34,6 +34,12 @@ Currently, sikipipe has the following modules:
   b. 05a_crisprvariants_blat_umi_5: run CrisprVRiants and plot variants: BLAT, UMI_cutoff5    
   c: 05b_crisprvariants_bwa_umi_1: run CrisprVRiants and plot variants: BWA, UMI_cutoff1    
   d: 05b_crisprvariants_bwa_umi_5: run CrisprVRiants and plot variants: BWA, UMI_cutoff5    
+6. **Large insert stat**: since CrispRVariants drops the naems of the reads, parse BAM to figure out large inserts
+  a. 06a_large_insert_stat_blat_umi_1: stat/all_sample.csv    
+  Header: sample_name, CIGAR, insert_size, pos_ref, insert_seq, read_seq    
+  b. 06a_large_insert_stat_blat_umi_5   
+  c. 06a_large_insert_stat_bwa_umi_1    
+  d. 06a_large_insert_stat_bwa_umi_5    
 
 ## TODO:
-1.  parse out large insertions location and sequence: with crisprvariants or BAM? CrispRVariants drops the name
+1. Analyze other samples in addition to the 6 samples.
