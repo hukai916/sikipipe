@@ -31,7 +31,14 @@
 2022-11-10 17:43:55	53m 31s	ecstatic_tuckerman	ERR	fcd730f407c8a106719c70234bdd6514	a515e2cd-70e4-43b1-9e52-6142971025b8	nextflow run main.nf -c conf/siki_5_6_7.config -profile docker -resume a515e2cd-70e4-43b1-9e52-6142971025b8
 2022-11-10 21:57:05	1h 3m 7s	maniac_watson	ERR	fcd730f407c8a106719c70234bdd6514	a515e2cd-70e4-43b1-9e52-6142971025b8	nextflow run main.nf -c conf/siki_5_6_7.config -profile docker -resume a515e2cd-70e4-43b1-9e52-6142971025b8
 2022-11-10 23:28:45	1h 20m 18s	stupefied_murdock	OK	fcd730f407c8a106719c70234bdd6514	a515e2cd-70e4-43b1-9e52-6142971025b8	nextflow run main.nf -c conf/siki_5_6_7.config -profile docker -resume a515e2cd-70e4-43b1-9e52-6142971025b8
+<<<<<<< HEAD
+2022-11-14 21:55:03	-	infallible_becquerel	-	fcd730f407c8a106719c70234bdd6514	6c82e095-358a-4a88-aa86-ed3ac1386806	nextflow run main.nf -c conf/siki_5_6_7.config -profile singularity,lsf
+2022-11-14 21:55:38	-	golden_heyrovsky	-	fcd730f407c8a106719c70234bdd6514	d1a3aae9-7c5d-49fb-8ac7-4f7dd07d9ec1	nextflow run main.nf -c conf/sci/siki_5_6_7.config -profile singularity,lsf
+2022-11-14 21:56:57	-	wise_goldwasser	-	fcd730f407c8a106719c70234bdd6514	15691831-ba74-431c-ab3d-84c8585cacf4	nextflow run main.nf -c conf/sci/siki_5_6_7.config -profile singularity,lsf
+2022-11-14 21:59:48	-	angry_church	-	fcd730f407c8a106719c70234bdd6514	37fb3554-3677-4ed5-be6d-885965590eb8	nextflow run main.nf -c conf/sci/siki_5_6_7.config -profile singularity,lsf
+=======
 2022-11-14 21:58:15	8.1s	agitated_ramanujan	OK	fcd730f407c8a106719c70234bdd6514	a515e2cd-70e4-43b1-9e52-6142971025b8	nextflow run main.nf -c conf/siki_5_6_7.config -profile docker -resume a515e2cd-70e4-43b1-9e52-6142971025b8
 2022-11-14 22:01:31	-	sleepy_dalembert	-	4f27ca9fdc4f85fb97b6f76bd35fa2a9	a515e2cd-70e4-43b1-9e52-6142971025b8	nextflow run main.nf -c conf/siki_5_6_7.config -profile docker -resume a515e2cd-70e4-43b1-9e52-6142971025b8
 2022-11-14 22:01:48	-	crazy_ptolemy	-	78ff2aace898a0546556ecddb91bc764	a515e2cd-70e4-43b1-9e52-6142971025b8	nextflow run main.nf -c conf/siki_5_6_7.config -profile docker -resume a515e2cd-70e4-43b1-9e52-6142971025b8
 2022-11-14 22:02:00	8.2s	tiny_ptolemy	OK	fcd730f407c8a106719c70234bdd6514	a515e2cd-70e4-43b1-9e52-6142971025b8	nextflow run main.nf -c conf/siki_5_6_7.config -profile docker -resume a515e2cd-70e4-43b1-9e52-6142971025b8
+>>>>>>> cefdaa20a5fdfd0601732c207b3956ec4f9c99cf
