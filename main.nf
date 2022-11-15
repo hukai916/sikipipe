@@ -23,7 +23,7 @@ WorkflowMain.initialise(workflow, params, log)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-include { SIKIPIPE } from './workflows/SIKIPIPE'
+include { SIKIPIPE } from '/home/kai.hu-umw/pi/nathan.lawson-umw/sikipipe/workflows/SIKIPIPE'
 
 //
 // WORKFLOW: Run main test/SIKIPIPE analysis pipeline
