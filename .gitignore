@@ -1,4 +1,5 @@
 .nextflow.*
+.nextflow/*
 res_*/*
 results/*
 results_*/*
