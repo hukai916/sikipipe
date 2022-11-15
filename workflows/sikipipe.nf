@@ -74,11 +74,11 @@ include { INSERT_STAT as INSERT_STAT_BLAT_5      } from '../modules/local/insert
 include { INSERT_STAT as INSERT_STAT_BWA_1       } from '../modules/local/insert_stat'
 include { INSERT_STAT as INSERT_STAT_BWA_5       } from '../modules/local/insert_stat'
 
-include { MAP_LOCUS                   } from '../modules/local/map_locus'
-include { CLASSIFY_INDEL              } from '../modules/local/classify_indel'
-include { CLASSIFY_READTHROUGH        } from '../modules/local/classify_readthrough'
-include { BBMERGE                     } from '../modules/local/bbmerge'
-include { FASTQC_SINGLE               } from '../modules/local/fastqc_single'
+// include { MAP_LOCUS                   } from '../modules/local/map_locus'
+// include { CLASSIFY_INDEL              } from '../modules/local/classify_indel'
+// include { CLASSIFY_READTHROUGH        } from '../modules/local/classify_readthrough'
+// include { BBMERGE                     } from '../modules/local/bbmerge'
+// include { FASTQC_SINGLE               } from '../modules/local/fastqc_single'
 
 // include { REPEAT_DIST_WITHIN_UMI_GROUP} from '../modules/local/repeat_dist_within_umi_group'
 include { UMI_GROUP_STAT              } from '../modules/local/umi_group_stat'
@@ -246,7 +246,7 @@ workflow SIKIPIPE {
     )
     ch_versions = ch_versions.mix(BLAT_UMI_5.out.versions)
 
-    // MODULE: how many preciesinserction
+    // MODULE: how many precise insertions
     PRECISE_INSERT_UMI_1 (
       BLAT_UMI_1.out.reads,
       BLAT_UMI_1.out.blat_bam_tuned,

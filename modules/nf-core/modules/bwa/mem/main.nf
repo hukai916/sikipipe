@@ -11,8 +11,10 @@ process BWA_MEM {
     val outdir
 
     output:
-    tuple val(meta), path("*/*.bam"), emit: bam
-    path  "versions.yml",             emit: versions
+    tuple val(meta), path("*/*.bam"),      emit: bam
+    tuple val(meta), path("*/mapped/*"),   emit: mapped
+    tuple val(meta), path("*/unmapped/*"), emit: unmapped
+    path  "versions.yml",                  emit: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -24,6 +26,9 @@ process BWA_MEM {
     def samtools_command = sort_bam ? 'sort' : 'view'
     """
     mkdir $outdir
+    mkdir ${outdir}/mapped
+    mkdir ${outdir}/unmapped
+
     INDEX=`find -L ./ -name "*.amb" | sed 's/.amb//'`
 
     bwa mem \\
@@ -32,6 +37,13 @@ process BWA_MEM {
         \$INDEX \\
         $reads \\
         | samtools $samtools_command $args2 --threads $task.cpus -o ${outdir}/${prefix}.bam -
+
+    # seperate unmapped reads:
+    samtools view -f 4 ${outdir}/${prefix}.bam -o ${outdir}/unmapped/${prefix}.bam
+    samtools view -F 4 ${outdir}/${prefix}.bam -o ${outdir}/mapped/${prefix}.bam
+
+    bedtools bamtofastq -i ${outdir}/unmapped/${prefix}.bam -fq ${outdir}/unmapped/${prefix}.fastq
+    bedtools bamtofastq -i ${outdir}/mapped/${prefix}.bam -fq ${outdir}/mapped/${prefix}.fastq
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

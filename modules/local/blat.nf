@@ -2,7 +2,7 @@ process BLAT {
     tag "$meta.id"
     label 'process_low'
 
-    container "hukai916/miniconda3_blat:0.2"
+    container "hukai916/miniconda3_blat:0.2.1"
 
     input:
     tuple val(meta), path(reads)
@@ -14,6 +14,8 @@ process BLAT {
     tuple val(meta), path("*/blat_bam_tuned/*.tuned.bam"),         emit: blat_bam_tuned
     path "*/fasta/*.fasta",                                        emit: fasta
     tuple val(meta), path("*/input/*.fastq.gz"),                   emit: reads
+    tuple val(meta), path("*/mapped/*"),                           emit: mapped
+    tuple val(meta), path("*/unmapped/*"),                         emit: unmapped
     path  "versions.yml",                                          emit: versions
 
     when:
@@ -56,6 +58,19 @@ process BLAT {
       ## add seq and qual:
       #zcat < $reads | awk -v ORS="" '{if (NR%4 == 0) {print \$0"\\n"} else {print \$0"\t"} }' > ${outdir}/blat_bam_tuned/${prefix}.fastq.tsv
       #samtools view -h ${outdir}/blat_bam_tuned/${prefix}.soft.bam | awk 'BEGIN{FS=OFS="\t"} NR==FNR { seq_dict[substr(\$1, 2)] = \$2; qual_dict[substr(\$1, 2)] = \$4; next } { if (FNR < 4) {print \$0} else { if (\$1 in seq_dict) { \$10 = seq_dict[\$1]; \$11 = qual_dict[\$1]; print \$0 } } } ' ${outdir}/blat_bam_tuned/${prefix}.fastq.tsv - | samtools view -o ${outdir}/blat_bam_tuned/${prefix}.tuned.bam
+
+      ## seperate unmapped reads:
+      mkdir ${outdir}/mapped
+      mkdir ${outdir}/unmapped
+
+      samtools view -f 4 ${outdir}/blat_bam_tuned/${prefix}.tuned.bam -o ${outdir}/unmapped/${prefix}.tuned.bam
+      samtools view -F 4 ${outdir}/blat_bam_tuned/${prefix}.tuned.bam -o ${outdir}/mapped/${prefix}.tuned.bam
+
+      samtools index ${outdir}/mapped/${prefix}.tuned.bam
+      samtools index ${outdir}/unmapped/${prefix}.tuned.bam
+
+      bedtools bamtofastq -i ${outdir}/unmapped/${prefix}.tuned.bam -fq ${outdir}/unmapped/${prefix}.tuned.fastq
+      bedtools bamtofastq -i ${outdir}/mapped/${prefix}.tuned.bam -fq ${outdir}/mapped/${prefix}.tuned.fastq
 
       cat <<-END_VERSIONS > versions.yml
       "${task.process}":

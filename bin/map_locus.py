@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 """
-To annotate reads into htt, misprimed, and problem reads:
+Adatped from HTT project: To annotate reads into htt, misprimed, and problem reads:
     if both ends match: htt_locus;
     if no end matches: problem_reads
 Usage:

@@ -31,35 +31,20 @@ _open = partial(gzip.open, mode='rt') if encoding == 'gzip' else open
 samfile = pysam.AlignmentFile(bam, "rb")
 outfile = pysam.AlignmentFile(outfile, "w", template = samfile)
 
-encoding = guess_type(fastq)[1]  # uses file extension
-_open = partial(gzip.open, mode='rt') if encoding == 'gzip' else open
-
 # read fastq into dictionary:
-dict_fastq = {} # keep track of read name, and read seq in rc, and qual in reverse order
+dict_fastq = {} # record.seq, record.seq.rc. record.qual
 with _open(fastq) as f:
     for record in SeqIO.parse(f, 'fastq'):
         tem = record.format("fastq").split("\n")
-        id, qual = str(tem[0])[1:], tem[3][::-1]
-        seq_rc = str(record.reverse_complement().seq)
-        dict_fastq[id] = [seq_rc, qual]
+        id, qual = str(tem[0])[1:], tem[3]
+        dict_fastq[id] = [str(record.seq), str(record.reverse_complement().seq), qual]
 
 for read in samfile:
     if (read.is_reverse):
-        read.query_sequence = dict_fastq[read.qname][0]
-        read.qual = dict_fastq[read.qname][1]
+        read.query_sequence = dict_fastq[read.qname][1]
+        read.qual = dict_fastq[read.qname][2][::-1]
         outfile.write(read)
     else:
+        read.query_sequence = dict_fastq[read.qname][0]
+        read.qual = dict_fastq[read.qname][2]
         outfile.write(read)
-
-#
-# # if seq and qual already in bam:
-# for read in samfile:
-#     if (read.is_reverse):
-#         outfile1.write(read)
-#         query_sequence = read.query_sequence
-#         qual = read.qual
-#         read.query_sequence = read.get_forward_sequence()
-#         read.qual = qual[::-1] # also reverse qualities.
-#         outfile.write(read)
-#     else:
-#         outfile.write(read)
