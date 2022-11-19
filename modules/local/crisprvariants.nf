@@ -51,27 +51,36 @@ process CRISPRVARIANTS {
       # Step3: create crispr_set
     bam_fname <- "$bam"
 
-    crispr_set <- readsToTarget(bam_fname,
-                                target = gdl,
-                                reference = reference,
-                                chimera.to.target = $chimera_to_target, # allow larger gaps
-                                target.loc = zero_coordinate)
-    vc <- variantCounts(crispr_set)
+    tryCatch(
+      {
+        crispr_set <- readsToTarget(bam_fname,
+                                    target = gdl,
+                                    reference = reference,
+                                    chimera.to.target = $chimera_to_target, # allow larger gaps
+                                    target.loc = zero_coordinate)
+        vc <- variantCounts(crispr_set)
 
-      # Step4: plot variants
-    top.n <- $top_n
-    png(file="${outdir}/plot/${prefix}.png", res = 120, width = 2500, height = 1000)
-    p <- plotVariants(crispr_set,
-                      gene.text.size = 8,
-                      row.ht.ratio = c(1,8),
-                      col.wdth.ratio = c(4,2),
-                      plotAlignments.args = list(line.weight = 0.5, ins.size = 2, legend.symbol.size = 4, top.n = top.n),
-                      plotFreqHeatmap.args = list(plot.text.size = 3,
-                                                  x.size = 5, top.n = top.n,
-                                                  legend.text.size = 8,
-                                                  legend.key.height = grid::unit(0.5, "lines")))
+          # Step4: plot variants
+        top.n <- $top_n
+        png(file="${outdir}/plot/${prefix}.png", res = 120, width = 2500, height = 1000)
+        p <- plotVariants(crispr_set,
+                          gene.text.size = 8,
+                          row.ht.ratio = c(1,8),
+                          col.wdth.ratio = c(4,2),
+                          plotAlignments.args = list(line.weight = 0.5, ins.size = 2, legend.symbol.size = 4, top.n = top.n),
+                          plotFreqHeatmap.args = list(plot.text.size = 3,
+                                                      x.size = 5, top.n = top.n,
+                                                      legend.text.size = 8,
+                                                      legend.key.height = grid::unit(0.5, "lines")))
 
-    saveRDS(vc, "${outdir}/vc/${prefix}.rds")
+        saveRDS(vc, "${outdir}/vc/${prefix}.rds")
+      },
+      error = function(cond) {
+        message("CrisprVRiants failed!")
+        return(NA)
+      }
+    )
+
 
     """
 }
