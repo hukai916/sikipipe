@@ -11,8 +11,8 @@ process CRISPRVARIANTS {
     val outdir
 
     output:
-    path "*/vc/*.rds",        emit: vc
-    path "*/plot/*.png",      emit: plot
+    path "*/vc/*",        emit: vc
+    path "*/plot/*",      emit: plot
 
     when:
     task.ext.when == null || task.ext.when
