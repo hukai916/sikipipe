@@ -35,8 +35,8 @@ process CRISPRVARIANTS {
 
     dir.create("${outdir}/plot", recursive = TRUE)
     dir.create("${outdir}/vc", recursive = TRUE)
-    file.create("${outdir}/vc/.test.rds")
-    file.create("${outdir}/plot/.test.png")
+    file.create("${outdir}/vc/test.rds")
+    file.create("${outdir}/plot/test.png")
 
 
       # Step1: obtain gdl
