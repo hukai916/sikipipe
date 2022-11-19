@@ -11,8 +11,8 @@ process CRISPRVARIANTS {
     val outdir
 
     output:
-    path "*/vc/*",        emit: vc
-    path "*/plot/*",      emit: plot
+    path "*/vc/*.rds",        emit: vc
+    path "*/plot/*.png",      emit: plot
 
     when:
     task.ext.when == null || task.ext.when
@@ -35,6 +35,9 @@ process CRISPRVARIANTS {
 
     dir.create("${outdir}/plot", recursive = TRUE)
     dir.create("${outdir}/vc", recursive = TRUE)
+    file.create("${outdir}/vc/.test.rds")
+    file.create("${outdir}/plot/.test.png")
+
 
       # Step1: obtain gdl
     gd_fname <- "$guide_bed"
