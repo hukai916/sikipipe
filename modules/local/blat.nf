@@ -37,9 +37,16 @@ process BLAT {
       blat $ref ${outdir}/fasta/${prefix}.fasta ${outdir}/blat_bam/${prefix}.psl
       psl2sam.pl ${outdir}/blat_bam/${prefix}.psl > ${outdir}/blat_bam/${prefix}.sam
       ref_name=\$(awk 'NR==1 {print substr(\$0,2,length(\$0))}' $ref)
+
       echo "@HD\tVN:1.0\tGO:query" > tem.txt
       echo "@SQ\tSN:\$ref_name\tLN:X" >> tem.txt
-      cat tem.txt ${outdir}/blat_bam/${prefix}.sam > ${outdir}/blat_bam/${prefix}.header.sam
+      cat tem.txt ${outdir}/blat_bam/${prefix}.sam > ${outdir}/blat_bam/${prefix}.header.tem.sam # may contain unmapped flags
+
+
+      # force removal of unmapped flags
+      samtools view ${outdir}/blat_bam/${prefix}.header.tem.sam | awk -v OFS='\t' '{print \$1,\$2-4,\$3,\$4,\$5,\$6,\$7,\$8,\$9,\$10,\$11,\$12,\$13}' > ${outdir}/blat_bam/${prefix}.header.unmap_remove.sam
+
+      cat tem.txt ${outdir}/blat_bam/${prefix}.header.unmap_remove.sam > ${outdir}/blat_bam/${prefix}.header.sam
 
       # sort:
       samtools sort ${outdir}/blat_bam/${prefix}.header.sam -o ${outdir}/blat_bam/${prefix}.bam
