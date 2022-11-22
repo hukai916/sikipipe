@@ -43,3 +43,4 @@ Currently, sikipipe has the following modules:
 
 ## TODO:
 1. Analyze other samples in addition to the 6 samples.
+2. Debug the BLAT output to bam issue.
