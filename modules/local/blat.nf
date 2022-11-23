@@ -39,8 +39,8 @@ process BLAT {
       ref_name=\$(awk 'NR==1 {print substr(\$0,2,length(\$0))}' $ref)
       # remove all trailing spaces in the reference name because samtools is very sensitive about it, any trailing spaces will invalidate the reference check, thereby, mapping the third column a * (some ref.fasta contains a special ending character)
       ref_name2=\$(echo \$ref_name | awk '{ gsub(/[[:space:]]+\$/,""); print }')
-      echo "@HD\tVN:1.0\tGO:query" > tem.txt
-      echo "@SQ\tSN:\${ref_name2}\tLN:X" >> tem.txt
+      echo -e "@HD\\tVN:1.0\\tGO:query" > tem.txt
+      echo -e "@SQ\\tSN:\${ref_name2}\\tLN:X" >> tem.txt
       cat tem.txt ${outdir}/blat_bam/${prefix}.sam > ${outdir}/blat_bam/${prefix}.header.sam
 
       # sort:
