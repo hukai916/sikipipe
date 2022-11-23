@@ -2,7 +2,7 @@ process BLAT {
     tag "$meta.id"
     label 'process_low'
 
-    container "hukai916/miniconda3_blat:0.2.2"
+    container "hukai916/miniconda3_blat:0.2.1"
 
     input:
     tuple val(meta), path(reads)
