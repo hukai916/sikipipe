@@ -22,7 +22,9 @@ process PREP_REF {
       """
       mkdir -p $outdir/ref
       touch $outdir/ref/ref.fasta
-      prep_ref.py $ref $outdir/ref/ref.fasta
+      dos2unix -n $ref $outdir/ref/ref.tem.fasta # in case using Window formatting
+
+      prep_ref.py $outdir/ref/ref.tem.fasta $outdir/ref/ref.fasta
 
       cat <<-END_VERSIONS > versions.yml
       "${task.process}":
@@ -34,7 +36,8 @@ process PREP_REF {
 
       """
       mkdir -p $outdir/ref
-      cp -P $ref $outdir/ref/ref.fasta
+      dos2unix -n $ref $outdir/ref/ref.fasta # in case using Windows format
+      #cp -P $ref $outdir/ref/ref.fasta
 
       cat <<-END_VERSIONS > versions.yml
       "${task.process}":

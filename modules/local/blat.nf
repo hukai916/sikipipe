@@ -2,7 +2,7 @@ process BLAT {
     tag "$meta.id"
     label 'process_low'
 
-    container "hukai916/miniconda3_blat:0.2.1"
+    container "hukai916/miniconda3_blat:0.2.2"
 
     input:
     tuple val(meta), path(reads)
@@ -38,9 +38,10 @@ process BLAT {
       psl2sam.pl ${outdir}/blat_bam/${prefix}.psl > ${outdir}/blat_bam/${prefix}.sam
       ref_name=\$(awk 'NR==1 {print substr(\$0,2,length(\$0))}' $ref)
       # remove all trailing spaces in the reference name because samtools is very sensitive about it, any trailing spaces will invalidate the reference check, thereby, mapping the third column a * (some ref.fasta contains a special ending character)
-      ref_name2=\$(echo \$ref_name | awk '{ gsub(/[[:space:]]+\$/,""); print }')
+      # ref_name2=\$(echo \$ref_name | awk '{ gsub(/[[:space:]]+\$/,""); print }')
+      # above is not working, probably due to gsub not available in the specified singularity image?
       echo -e "@HD\\tVN:1.0\\tGO:query" > tem.txt
-      echo -e "@SQ\\tSN:\${ref_name2}\\tLN:X" >> tem.txt
+      echo -e "@SQ\\tSN:\${ref_name}\\tLN:X" >> tem.txt
       cat tem.txt ${outdir}/blat_bam/${prefix}.sam > ${outdir}/blat_bam/${prefix}.header.sam
 
       # sort:
