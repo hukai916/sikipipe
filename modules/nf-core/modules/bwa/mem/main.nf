@@ -8,14 +8,16 @@ process BWA_MEM {
     tuple val(meta), path(reads)
     path index
     val sort_bam
+    path insert_fasta
     val outdir
 
     output:
-    tuple val(meta), path("*/*.bam"),      emit: bam
-    tuple val(meta), path("*/mapped/*"),   emit: mapped
-    tuple val(meta), path("*/unmapped/*"), emit: unmapped
-    tuple val(meta), path("*/stat/*.csv"), emit: stat
-    path  "versions.yml",                  emit: versions
+    tuple val(meta), path("*/*.bam"),                   emit: bam
+    tuple val(meta), path("*/mapped/insert/*.bam"),     emit: insert
+    tuple val(meta), path("*/mapped/non_insert/*.bam"), emit: non_insert
+    tuple val(meta), path("*/unmapped/*"),              emit: unmapped
+    tuple val(meta), path("*/stat/*.csv"),              emit: stat
+    path  "versions.yml",                               emit: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -28,6 +30,8 @@ process BWA_MEM {
     """
     mkdir $outdir
     mkdir ${outdir}/mapped
+    mkdir ${outdir}/mapped/insert
+    mkdir ${outdir}/mapped/non_insert
     mkdir ${outdir}/unmapped
     mkdir ${outdir}/stat
 
@@ -49,6 +53,9 @@ process BWA_MEM {
 
     bedtools bamtofastq -i ${outdir}/unmapped/${prefix}.bam -fq ${outdir}/unmapped/${prefix}.fastq
     bedtools bamtofastq -i ${outdir}/mapped/${prefix}.bam -fq ${outdir}/mapped/${prefix}.fastq
+
+    # seperate mappable bam into insert and non_insert bam
+    separate_insert.py ${outdir}/mapped/${prefix}.bam $insert_fasta ${outdir}/mapped/insert/${prefix}.bam ${outdir}/mapped/non_insert/${prefix}.bam
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
