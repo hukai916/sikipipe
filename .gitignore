@@ -6,3 +6,4 @@ results_*/*
 test/*
 work/*
 null/*
+.DS_Store/*
