@@ -49,7 +49,8 @@ process CRISPRVARIANTS {
       # Step2: obtain reference
     reference <- system(sprintf("samtools faidx $ref %s:%s-%s", seqnames(gdl)[1], start(gdl)[1], end(gdl)[1]), intern = TRUE)
     reference <- paste(reference[2:length(reference)], collapse = '')
-    reference <- Biostrings::reverseComplement(Biostrings::DNAString(reference))
+    #reference <- Biostrings::reverseComplement(Biostrings::DNAString(reference))
+    reference <- Biostrings::DNAString(reference)
 
       # Step3: create crispr_set
     bam_fname <- "$bam"
