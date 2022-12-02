@@ -45,7 +45,7 @@ process BWA_MEM {
     samtools view -F 4 ${outdir}/${prefix}.bam -o ${outdir}/mapped/${prefix}.bam
     count_unmapped=\$(samtools view -c ${outdir}/unmapped/${prefix}.bam)
     count_mapped=\$(samtools view -c ${outdir}/mapped/${prefix}.bam)
-    echo "${prefix}},\$count_mapped,\$count_unmapped" > ${outdir}/stat/${prefix}.stat.csv
+    echo "${prefix},\$count_mapped,\$count_unmapped" > ${outdir}/stat/${prefix}.stat.csv
 
     bedtools bamtofastq -i ${outdir}/unmapped/${prefix}.bam -fq ${outdir}/unmapped/${prefix}.fastq
     bedtools bamtofastq -i ${outdir}/mapped/${prefix}.bam -fq ${outdir}/mapped/${prefix}.fastq
