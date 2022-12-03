@@ -2,19 +2,20 @@ process BWA_MEM {
     // tag "$meta.id"
     label 'process_medium'
 
-    container "hukai916/bwa_xenial:0.7.17"
+    container "hukai916/bwa_xenial:0.2"
 
     input:
     tuple val(meta), path(reads)
     path index
     val sort_bam
     path insert_fasta
+    val insert_frac_size
     val outdir
 
     output:
     tuple val(meta), path("*/*.bam"),                   emit: bam
-    tuple val(meta), path("*/mapped/insert/*.bam"),     emit: insert
-    tuple val(meta), path("*/mapped/non_insert/*.bam"), emit: non_insert
+    tuple val(meta), path("*/mapped/insert/*.bam"),     emit: bam_insert
+    tuple val(meta), path("*/mapped/non_insert/*.bam"), emit: bam_non_insert
     tuple val(meta), path("*/unmapped/*"),              emit: unmapped
     tuple val(meta), path("*/stat/*.csv"),              emit: stat
     path  "versions.yml",                               emit: versions
@@ -55,7 +56,7 @@ process BWA_MEM {
     bedtools bamtofastq -i ${outdir}/mapped/${prefix}.bam -fq ${outdir}/mapped/${prefix}.fastq
 
     # seperate mappable bam into insert and non_insert bam
-    separate_insert.py ${outdir}/mapped/${prefix}.bam $insert_fasta ${outdir}/mapped/insert/${prefix}.bam ${outdir}/mapped/non_insert/${prefix}.bam
+    separate_insert.py ${outdir}/mapped/${prefix}.bam $insert_fasta ${outdir}/mapped/insert/${prefix}.bam ${outdir}/mapped/non_insert/${prefix}.bam $insert_frac_size
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

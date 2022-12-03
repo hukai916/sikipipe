@@ -2,7 +2,7 @@ process BWA_INDEX {
     tag "$fasta"
     label 'process_single'
 
-    container "hukai916/bwa_xenial:0.7.17"
+    container "hukai916/bwa_xenial:0.2"
 
     input:
     path fasta

@@ -222,6 +222,8 @@ workflow SIKIPIPE {
       UMI_CORRECT.out.reads_cutoff1,
       BWA_INDEX.out.index,
       "sort",
+      params.insert_fasta,
+      params.insert_frac_size,
       "03c_bwa_cutoff1"
     )
     ch_versions = ch_versions.mix(BWA_UMI_1.out.versions)
@@ -231,6 +233,8 @@ workflow SIKIPIPE {
       UMI_CORRECT.out.reads_cutoff5,
       BWA_INDEX.out.index,
       "sort",
+      params.insert_fasta,
+      params.insert_frac_size,
       "03c_bwa_cutoff5"
     )
     ch_versions = ch_versions.mix(BWA_UMI_5.out.versions)
@@ -298,7 +302,6 @@ workflow SIKIPIPE {
       BWA_UMI_1.out.bam,
       PREP_REF.out.ref,
       params.guide_bed,
-      params.insert_fasta,
       "05b_crisprvariants_bwa_umi_1/all_reads"
     )
 
@@ -307,7 +310,6 @@ workflow SIKIPIPE {
       BWA_UMI_1.out.bam_insert,
       PREP_REF.out.ref,
       params.guide_bed,
-      params.insert_fasta,
       "05b_crisprvariants_bwa_umi_1/insert_reads"
     )
 
@@ -316,7 +318,6 @@ workflow SIKIPIPE {
       BWA_UMI_1.out.bam_non_insert,
       PREP_REF_2.out.ref2,
       params.guide_bed,
-      params.insert_fasta,
       "05b_crisprvariants_bwa_umi_1/non_insert_reads"
     )
 
