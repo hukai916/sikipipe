@@ -339,6 +339,23 @@ workflow SIKIPIPE {
       "05b_crisprvariants_bwa_umi_5/all_reads"
     )
 
+    // Mappable reads and with insert
+    CRISPRVARIANTS_BWA_UMI_5_INSERT (
+      BWA_UMI_5.out.bam_insert,
+      PREP_REF.out.ref,
+      params.guide_bed,
+      "05b_crisprvariants_bwa_umi_5/insert_reads"
+    )
+
+    // Mappable reads and without insert
+    CRISPRVARIANTS_BWA_UMI_5_NON_INSERT (
+      BWA_UMI_5.out.bam_non_insert,
+      PREP_REF_2.out.ref,
+      params.guide_bed,
+      "05b_crisprvariants_bwa_umi_5/non_insert_reads"
+    )
+
+
     // MODULE: large insert stat
     INSERT_STAT_BLAT_1 (
       BLAT_UMI_1.out.blat_bam_tuned,

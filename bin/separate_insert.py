@@ -28,8 +28,8 @@ for record in SeqIO.parse(insert_fasta, "fasta"):
     break
 
 samfile = pysam.AlignmentFile(bam, "rb")
-outfile_insert = pysam.AlignmentFile(out_bam_insert, "w", template = samfile)
-outfile_non_insert = pysam.AlignmentFile(out_bam_non_insert, "w", template = samfile)
+outfile_insert = pysam.AlignmentFile(out_bam_insert, "wb", template = samfile)
+outfile_non_insert = pysam.AlignmentFile(out_bam_non_insert, "wb", template = samfile)
 
 for alignment in samfile:
     query = alignment.query_sequence
