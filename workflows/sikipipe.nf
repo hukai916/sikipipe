@@ -208,11 +208,10 @@ workflow SIKIPIPE {
     )
     ch_versions = ch_versions.mix(PREP_REF.out.versions)
 
-    // MODULE: rc reference sequence
     PREP_REF_2 (
-      params.ref2,
-      params.ref2_need_rc,
-      "03a_prep_ref2"
+      params.ref,
+      params.ref_need_rc,
+      "03a_prep_ref_2"
     )
     ch_versions = ch_versions.mix(PREP_REF.out.versions)
 
@@ -326,7 +325,7 @@ workflow SIKIPIPE {
     // Mappable reads and without insert
     CRISPRVARIANTS_BWA_UMI_1_NON_INSERT (
       BWA_UMI_1.out.bam_non_insert,
-      PREP_REF_2.out.ref,
+      PREP_REF_2.out.ref2,
       params.guide_bed,
       "05b_crisprvariants_bwa_umi_1/non_insert_reads"
     )
