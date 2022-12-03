@@ -58,6 +58,7 @@ include { CAT_STAT as CAT_STAT_PRECISE_INSERT_UMI_1 } from '../modules/local/cat
 include { CAT_STAT as CAT_STAT_PRECISE_INSERT_UMI_5 } from '../modules/local/cat_stat'
 
 include { PREP_REF                    } from '../modules/local/prep_ref'
+include { PREP_REF as PREP_REF_2      } from '../modules/local/prep_ref'
 include { BWA_INDEX                   } from '../modules/nf-core/modules/bwa/index/main'
 include { BWA_MEM as BWA_UMI_1        } from '../modules/nf-core/modules/bwa/mem/main'
 include { BWA_MEM as BWA_UMI_5        } from '../modules/nf-core/modules/bwa/mem/main'
