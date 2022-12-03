@@ -307,22 +307,20 @@ workflow SIKIPIPE {
       "05a_crisprvariants_blat_umi_5"
     )
 
-    // CRISPRVARIANTS_BWA_UMI_1 (
-    //   BWA_UMI_1.out.bam,
-    //   PREP_REF.out.ref,
-    //   params.guide_bed,
-    //   "05b_crisprvariants_bwa_umi_1/all_reads"
-    // )
-
-
-    // Mappable reads and with insert
-    CRISPRVARIANTS_BWA_UMI_1_INSERT (
-      BWA_UMI_1.out.bam_insert,
+    CRISPRVARIANTS_BWA_UMI_1 (
+      BWA_UMI_1.out.bam,
       PREP_REF.out.ref,
       params.guide_bed,
-      "05b_crisprvariants_bwa_umi_1/insert_reads"
+      "05b_crisprvariants_bwa_umi_1/all_reads"
     )
 
+    // Mappable reads and with insert
+    // CRISPRVARIANTS_BWA_UMI_1_INSERT (
+    //   BWA_UMI_1.out.bam_insert,
+    //   PREP_REF.out.ref,
+    //   params.guide_bed,
+    //   "05b_crisprvariants_bwa_umi_1/insert_reads"
+    // )
 
     // Mappable reads and without insert
     CRISPRVARIANTS_BWA_UMI_1_NON_INSERT (
@@ -331,6 +329,7 @@ workflow SIKIPIPE {
       params.guide_bed,
       "05b_crisprvariants_bwa_umi_1/non_insert_reads"
     )
+
 
 
     CRISPRVARIANTS_BWA_UMI_5 (
