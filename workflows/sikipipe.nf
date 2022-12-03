@@ -209,7 +209,7 @@ workflow SIKIPIPE {
     ch_versions = ch_versions.mix(PREP_REF.out.versions)
 
     PREP_REF_2 (
-      params.ref,
+      params.ref2,
       params.ref_need_rc,
       "03a_prep_ref_2"
     )
