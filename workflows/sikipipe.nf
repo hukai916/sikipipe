@@ -58,7 +58,7 @@ include { CAT_STAT as CAT_STAT_PRECISE_INSERT_UMI_1 } from '../modules/local/cat
 include { CAT_STAT as CAT_STAT_PRECISE_INSERT_UMI_5 } from '../modules/local/cat_stat'
 
 include { PREP_REF                    } from '../modules/local/prep_ref'
-include { PREP_REF as PREP_REF_2      } from '../modules/local/prep_ref'
+include { PREP_REF as PREP_INSERT     } from '../modules/local/prep_ref'
 include { BWA_INDEX                   } from '../modules/nf-core/modules/bwa/index/main'
 include { BWA_MEM as BWA_UMI_1        } from '../modules/nf-core/modules/bwa/mem/main'
 include { BWA_MEM as BWA_UMI_5        } from '../modules/nf-core/modules/bwa/mem/main'
@@ -208,6 +208,15 @@ workflow SIKIPIPE {
     )
     ch_versions = ch_versions.mix(PREP_REF.out.versions)
 
+    // MODULE: rc reference sequence
+    PREP_INSERT (
+      params.insert_fasta,
+      false,
+      "03a_prep_insert"
+    )
+    ch_versions = ch_versions.mix(PREP_REF.out.versions)
+
+
     // MODULE: bwa index
     BWA_INDEX (
       PREP_REF.out.ref,
@@ -317,7 +326,7 @@ workflow SIKIPIPE {
     // Mappable reads and without insert
     CRISPRVARIANTS_BWA_UMI_1_NON_INSERT (
       BWA_UMI_1.out.bam_non_insert,
-      PREP_REF_2.out.ref2,
+      PREP_INSERT.out.ref,
       params.guide_bed,
       "05b_crisprvariants_bwa_umi_1/non_insert_reads"
     )
