@@ -326,7 +326,7 @@ workflow SIKIPIPE {
     CRISPRVARIANTS_BWA_UMI_1_NON_INSERT (
       BWA_UMI_1.out.bam_non_insert,
       PREP_REF_2.out.ref,
-      params.guide_bed,
+      params.guide_bed2,
       "05b_crisprvariants_bwa_umi_1/non_insert_reads"
     )
 
@@ -351,7 +351,7 @@ workflow SIKIPIPE {
     CRISPRVARIANTS_BWA_UMI_5_NON_INSERT (
       BWA_UMI_5.out.bam_non_insert,
       PREP_REF_2.out.ref,
-      params.guide_bed,
+      params.guide_bed2,
       "05b_crisprvariants_bwa_umi_5/non_insert_reads"
     )
 
