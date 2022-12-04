@@ -60,6 +60,7 @@ include { CAT_STAT as CAT_STAT_PRECISE_INSERT_UMI_5 } from '../modules/local/cat
 include { PREP_REF                    } from '../modules/local/prep_ref'
 include { PREP_REF as PREP_REF_2      } from '../modules/local/prep_ref'
 include { BWA_INDEX                   } from '../modules/nf-core/modules/bwa/index/main'
+include { BWA_INDEX as BWA_INDEX_2    } from '../modules/nf-core/modules/bwa/index/main'
 include { BWA_MEM as BWA_UMI_1        } from '../modules/nf-core/modules/bwa/mem/main'
 include { BWA_MEM as BWA_UMI_5        } from '../modules/nf-core/modules/bwa/mem/main'
 include { BLAT as BLAT_UMI_1          } from '../modules/local/blat'
@@ -219,9 +220,15 @@ workflow SIKIPIPE {
     // MODULE: bwa index
     BWA_INDEX (
       PREP_REF.out.ref,
-      "03b_bwa_index"
+      "03b_bwa_index/bwa_index_ref1"
     )
     ch_versions = ch_versions.mix(BWA_INDEX.out.versions)
+
+    BWA_INDEX_2 (
+      PREP_REF_2.out.ref,
+      "03b_bwa_index_2/bwa_index_ref2"
+    )
+    ch_versions = ch_versions.mix(BWA_INDEX_2.out.versions)
 
     // BWA_INDEX.out.index.view()
     // UMI_CORRECT.out.reads_cutoff1.view()
@@ -233,6 +240,8 @@ workflow SIKIPIPE {
       "sort",
       params.insert_fasta,
       params.insert_frac_size,
+      PREP_REF_2.out.ref,
+      BWA_INDEX_2.out.index,
       "03c_bwa_cutoff1"
     )
     ch_versions = ch_versions.mix(BWA_UMI_1.out.versions)
@@ -244,6 +253,8 @@ workflow SIKIPIPE {
       "sort",
       params.insert_fasta,
       params.insert_frac_size,
+      PREP_REF_2.out.ref,
+      BWA_INDEX_2.out.index,
       "03c_bwa_cutoff5"
     )
     ch_versions = ch_versions.mix(BWA_UMI_5.out.versions)

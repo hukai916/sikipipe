@@ -10,6 +10,8 @@ process BWA_MEM {
     val sort_bam
     path insert_fasta
     val insert_frac_size
+    path ref2_fasta
+    path ref2_index
     val outdir
 
     output:
@@ -36,7 +38,7 @@ process BWA_MEM {
     mkdir ${outdir}/unmapped
     mkdir ${outdir}/stat
 
-    INDEX=`find -L ./ -name "*.amb" | sed 's/.amb//'`
+    INDEX=`find -L ./bwa_index_ref1/ -name "*.amb" | sed 's/.amb//'`
 
     bwa mem \\
         $args \\
@@ -56,11 +58,23 @@ process BWA_MEM {
     bedtools bamtofastq -i ${outdir}/mapped/${prefix}.bam -fq ${outdir}/mapped/${prefix}.fastq
 
     # seperate mappable bam into insert and non_insert bam
-    separate_insert.py ${outdir}/mapped/${prefix}.bam $insert_fasta ${outdir}/mapped/insert/${prefix}.bam ${outdir}/mapped/non_insert/${prefix}.bam $insert_frac_size
+    separate_insert.py ${outdir}/mapped/${prefix}.bam $insert_fasta ${outdir}/mapped/insert/${prefix}.bam ${outdir}/mapped/non_insert/${prefix}.raw.bam $insert_frac_size
     count_insert=\$(samtools view -c ${outdir}/mapped/insert/${prefix}.bam)
-    count_non_insert=\$(samtools view -c ${outdir}/mapped/non_insert/${prefix}.bam)
+    count_non_insert=\$(samtools view -c ${outdir}/mapped/non_insert/${prefix}.raw.bam)
     echo "${prefix},\$count_insert,\$count_non_insert" > ${outdir}/stat/${prefix}.insert_non_insert.csv
 
+    # for non-insert bam, re-map using REF2
+    #1 convert bam into fastq
+    bedtools bamtofastq -i ${outdir}/mapped/non_insert/${prefix}.raw.bam -fq ${outdir}/mapped/non_insert/${prefix}.fastq
+
+    #2 remap against REF2
+    INDEX2=`find -L ./bwa_index_ref2/ -name "*.amb" | sed 's/.amb//'`
+    bwa mem \\
+        $args \\
+        -t $task.cpus \\
+        \$INDEX2 \\
+        ${outdir}/mapped/non_insert/${prefix}.fastq \\
+        | samtools $samtools_command $args2 --threads $task.cpus -o ${outdir}/mapped/non_insert/${prefix}.bam -
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

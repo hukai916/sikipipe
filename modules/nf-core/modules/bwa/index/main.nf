@@ -9,7 +9,7 @@ process BWA_INDEX {
     val outdir
 
     output:
-    path "*/bwa",        emit: index
+    path "*/bwa_index*", emit: index
     path "versions.yml", emit: versions
 
     when:
@@ -18,11 +18,11 @@ process BWA_INDEX {
     script:
     def args = task.ext.args ?: ''
     """
-    mkdir -p ${outdir}/bwa
+    mkdir -p ${outdir}
     bwa \\
         index \\
         $args \\
-        -p ${outdir}/bwa/${fasta.baseName} \\
+        -p ${outdir}/${fasta.baseName} \\
         $fasta
 
     cat <<-END_VERSIONS > versions.yml
