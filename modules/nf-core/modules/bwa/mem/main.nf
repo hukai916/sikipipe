@@ -10,7 +10,6 @@ process BWA_MEM {
     val sort_bam
     path insert_fasta
     val insert_frac_size
-    path ref2_fasta
     path ref2_index
     val outdir
 

@@ -205,6 +205,7 @@ workflow SIKIPIPE {
     PREP_REF (
       params.ref,
       params.ref_need_rc,
+      "ref1.fasta",
       "03a_prep_ref"
     )
     ch_versions = ch_versions.mix(PREP_REF.out.versions)
@@ -212,6 +213,7 @@ workflow SIKIPIPE {
     PREP_REF_2 (
       params.ref2,
       params.ref_need_rc,
+      "ref2.fasta",
       "03a_prep_ref_2"
     )
     ch_versions = ch_versions.mix(PREP_REF.out.versions)
@@ -240,7 +242,6 @@ workflow SIKIPIPE {
       "sort",
       params.insert_fasta,
       params.insert_frac_size,
-      PREP_REF_2.out.ref,
       BWA_INDEX_2.out.index,
       "03c_bwa_cutoff1"
     )
@@ -253,7 +254,6 @@ workflow SIKIPIPE {
       "sort",
       params.insert_fasta,
       params.insert_frac_size,
-      PREP_REF_2.out.ref,
       BWA_INDEX_2.out.index,
       "03c_bwa_cutoff5"
     )

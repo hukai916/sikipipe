@@ -7,9 +7,10 @@ process PREP_REF {
     path ref
     val ref_rc
     val outdir
+    val outfile_name
 
     output:
-    path "*/ref/ref.fasta", emit: ref
+    path "*/ref/$outfile_name", emit: ref
     path  "versions.yml", emit: versions
 
     when:
@@ -21,10 +22,10 @@ process PREP_REF {
     if (ref_rc) {
       """
       mkdir -p $outdir/ref
-      touch $outdir/ref/ref.fasta
+      touch $outdir/ref/$outfile_name
       dos2unix -n $ref $outdir/ref/ref.tem.fasta # in case using Window formatting
 
-      prep_ref.py $outdir/ref/ref.tem.fasta $outdir/ref/ref.fasta
+      prep_ref.py $outdir/ref/ref.tem.fasta $outdir/ref/$outfile_name
 
       cat <<-END_VERSIONS > versions.yml
       "${task.process}":
@@ -36,8 +37,8 @@ process PREP_REF {
 
       """
       mkdir -p $outdir/ref
-      dos2unix -n $ref $outdir/ref/ref.fasta # in case using Windows format
-      #cp -P $ref $outdir/ref/ref.fasta
+      dos2unix -n $ref $outdir/ref/$outfile_name # in case using Windows format
+      #cp -P $ref $outdir/ref/$outfile_name
 
       cat <<-END_VERSIONS > versions.yml
       "${task.process}":
