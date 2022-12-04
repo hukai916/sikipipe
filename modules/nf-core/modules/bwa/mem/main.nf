@@ -2,7 +2,7 @@ process BWA_MEM {
     // tag "$meta.id"
     label 'process_medium'
 
-    container "hukai916/bwa_xenial:0.2"
+    container "hukai916/bwa_xenial:0.3"
 
     input:
     tuple val(meta), path(reads)
@@ -64,7 +64,8 @@ process BWA_MEM {
 
     # for non-insert bam, re-map using REF2
     #1 convert bam into fastq
-    bedtools bamtofastq -i ${outdir}/mapped/non_insert/${prefix}.raw.bam -fq ${outdir}/mapped/non_insert/${prefix}.fastq
+    bedtools bamtofastq -i ${outdir}/mapped/non_insert/${prefix}.raw.bam -fq ${outdir}/mapped/non_insert/${prefix}.tem.fastq
+    scutls fastq -u -i ${outdir}/mapped/non_insert/${prefix}.tem.fastq -o ${outdir}/mapped/non_insert/${prefix}.fastq
 
     #2 remap against REF2
     INDEX2=`find -L ./bwa_index_ref2/ -name "*.amb" | sed 's/.amb//'`
