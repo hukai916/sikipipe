@@ -332,15 +332,12 @@ workflow SIKIPIPE {
       params.guide_bed,
       "05b_crisprvariants_bwa_umi_1/all_reads"
     )
-
     CRISPRVARIANTS_BWA_UMI_1_COMBINE (
       BWA_UMI_1.out.bam_pure.collect(),
       PREP_REF.out.ref,
       params.guide_bed,
       "05b_crisprvariants_bwa_umi_1/all_reads/combine"
     )
-
-
     // Mappable reads and with insert
     CRISPRVARIANTS_BWA_UMI_1_INSERT (
       BWA_UMI_1.out.bam_insert,
@@ -348,7 +345,6 @@ workflow SIKIPIPE {
       params.guide_bed,
       "05b_crisprvariants_bwa_umi_1/insert_reads"
     )
-
     CRISPRVARIANTS_BWA_UMI_1_INSERT_COMBINE (
       BWA_UMI_1.out.bam_insert_pure.collect(),
       PREP_REF.out.ref,
@@ -365,18 +361,22 @@ workflow SIKIPIPE {
     )
     CRISPRVARIANTS_BWA_UMI_1_NON_INSERT_COMBINE (
       BWA_UMI_1.out.bam_non_insert_pure.collect(),
-      PREP_REF.out.ref,
-      params.guide_bed,
+      PREP_REF_2.out.ref,
+      params.guide_bed2,
       "05b_crisprvariants_bwa_umi_1/non_insert_reads/combine"
     )
-
-
 
     CRISPRVARIANTS_BWA_UMI_5 (
       BWA_UMI_5.out.bam,
       PREP_REF.out.ref,
       params.guide_bed,
       "05b_crisprvariants_bwa_umi_5/all_reads"
+    )
+    CRISPRVARIANTS_BWA_UMI_5_COMBINE (
+      BWA_UMI_5.out.bam_pure.collect(),
+      PREP_REF.out.ref,
+      params.guide_bed,
+      "05b_crisprvariants_bwa_umi_5/all_reads/combine"
     )
 
     // Mappable reads and with insert
@@ -386,6 +386,12 @@ workflow SIKIPIPE {
       params.guide_bed,
       "05b_crisprvariants_bwa_umi_5/insert_reads"
     )
+    CRISPRVARIANTS_BWA_UMI_5_INSERT_COMBINE (
+      BWA_UMI_5.out.bam_insert_pure.collect(),
+      PREP_REF.out.ref,
+      params.guide_bed,
+      "05b_crisprvariants_bwa_umi_5/insert_reads/combine"
+    )
 
     // Mappable reads and without insert
     CRISPRVARIANTS_BWA_UMI_5_NON_INSERT (
@@ -394,6 +400,14 @@ workflow SIKIPIPE {
       params.guide_bed2,
       "05b_crisprvariants_bwa_umi_5/non_insert_reads"
     )
+    CRISPRVARIANTS_BWA_UMI_5_NON_INSERT_COMBINE (
+      BWA_UMI_5.out.bam_non_insert_pure.collect(),
+      PREP_REF_2.out.ref,
+      params.guide_bed2,
+      "05b_crisprvariants_bwa_umi_5/non_insert_reads/combine"
+    )
+
+
 
 
     // MODULE: large insert stat
