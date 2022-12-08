@@ -1,5 +1,4 @@
 process BAM_COMBINE {
-    tag "$meta.id"
     label 'process_low'
 
     container "hukai916/miniconda3_bio:0.3"
