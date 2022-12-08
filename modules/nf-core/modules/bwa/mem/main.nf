@@ -15,8 +15,11 @@ process BWA_MEM {
 
     output:
     tuple val(meta), path("*/*.bam"),                   emit: bam
+    path "*/*.bam",                                     emit: bam_pure
     tuple val(meta), path("*/mapped/insert/*.bam"),     emit: bam_insert
+    path "*/mapped/insert/*.bam",                       emit: bam_insert_pure
     tuple val(meta), path("*/mapped/non_insert/*.bam"), emit: bam_non_insert
+    path "*/mapped/non_insert/*.bam" ,                  emit: bam_non_insert_pure
     tuple val(meta), path("*/unmapped/*"),              emit: unmapped
     tuple val(meta), path("*/stat/*.csv"),              emit: stat
     path  "versions.yml",                               emit: versions

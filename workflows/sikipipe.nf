@@ -328,7 +328,7 @@ workflow SIKIPIPE {
     )
 
     BAM_COMBINE_BWA_UMI_1 (
-      BWA_UMI_1.out.bam.collect()
+      BWA_UMI_1.out.bam_pure.collect()
     )
 
     CRISPRVARIANTS_BWA_UMI_1_COMBINE (
