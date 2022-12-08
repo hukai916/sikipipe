@@ -5,10 +5,10 @@ process BAM_COMBINE {
     container "hukai916/miniconda3_bio:0.3"
 
     input:
-    tuple val(meta), path(bam)
+    path bam
 
     output:
-    tuple val(meta), path("combined/combined.bam"),     emit: bam
+    tuple val("token"), path("combined/combined.bam"),     emit: bam
 
     script:
 
