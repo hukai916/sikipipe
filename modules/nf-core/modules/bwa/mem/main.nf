@@ -69,6 +69,7 @@ process BWA_MEM {
     #1 convert bam into fastq
     bedtools bamtofastq -i ${outdir}/mapped/non_insert/${prefix}.raw.bam -fq ${outdir}/mapped/non_insert/${prefix}.tem.fastq
     scutls fastq -u -i ${outdir}/mapped/non_insert/${prefix}.tem.fastq -o ${outdir}/mapped/non_insert/${prefix}.fastq
+    rm ${outdir}/mapped/non_insert/${prefix}.raw.bam
 
     #2 remap against REF2
     INDEX2=`find -L ./bwa_index_ref2/ -name "*.amb" | sed 's/.amb//'`
