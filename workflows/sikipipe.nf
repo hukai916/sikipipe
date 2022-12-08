@@ -70,6 +70,7 @@ include { PRECISE_INSERT as PRECISE_INSERT_UMI_5 } from '../modules/local/precis
 include { CRISPRVARIANTS as CRISPRVARIANTS_UMI_1 } from '../modules/local/crisprvariants'
 include { CRISPRVARIANTS as CRISPRVARIANTS_UMI_5 } from '../modules/local/crisprvariants'
 include { CRISPRVARIANTS as CRISPRVARIANTS_BWA_UMI_1 } from '../modules/local/crisprvariants'
+include { CRISPRVARIANTS as CRISPRVARIANTS_BWA_UMI_1_COMBINE } from '../modules/local/crisprvariants'
 include { CRISPRVARIANTS as CRISPRVARIANTS_BWA_UMI_1_INSERT } from '../modules/local/crisprvariants'
 include { CRISPRVARIANTS as CRISPRVARIANTS_BWA_UMI_1_NON_INSERT } from '../modules/local/crisprvariants'
 include { CRISPRVARIANTS as CRISPRVARIANTS_BWA_UMI_5 } from '../modules/local/crisprvariants'
@@ -324,6 +325,18 @@ workflow SIKIPIPE {
       params.guide_bed,
       "05b_crisprvariants_bwa_umi_1/all_reads"
     )
+
+    BAM_COMBINE_BWA_UMI_1 (
+      BWA_UMI_1.out.bam.collect()
+    )
+
+    CRISPRVARIANTS_BWA_UMI_1_COMBINE (
+      BAM_COMBINE_BWA_UMI_1.out.bam,
+      PREP_REF.out.ref,
+      params.guide_bed,
+      "05b_crisprvariants_bwa_umi_1/all_reads/combine"
+    )
+
 
     // Mappable reads and with insert
     CRISPRVARIANTS_BWA_UMI_1_INSERT (

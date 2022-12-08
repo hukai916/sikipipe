@@ -7,3 +7,5 @@ test/*
 work/*
 null/*
 .DS_Store/*
+.DS_Store
+modules/.DS_Store
