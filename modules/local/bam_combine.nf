@@ -7,7 +7,7 @@ process BAM_COMBINE {
     path bam
 
     output:
-    tuple val(["id":"id_token"]), path("combined/combined.bam"),     emit: bam
+    tuple val([id:"id_token"]), path("combined/combined.bam"),     emit: bam
 
     script:
 
