@@ -72,6 +72,12 @@ include { CRISPRVARIANTS as CRISPRVARIANTS_UMI_5 } from '../modules/local/crispr
 include { CRISPRVARIANTS as CRISPRVARIANTS_BWA_UMI_1 } from '../modules/local/crisprvariants'
 // include { BAM_COMBINE as BAM_COMBINE_BWA_UMI_1   } from '../modules/local/bam_combine'
 include { CRISPRVARIANTS as CRISPRVARIANTS_BWA_UMI_1_COMBINE } from '../modules/local/crisprvariants_combine'
+include { CRISPRVARIANTS as CRISPRVARIANTS_BWA_UMI_1_INSERT_COMBINE } from '../modules/local/crisprvariants_combine'
+include { CRISPRVARIANTS as CRISPRVARIANTS_BWA_UMI_1_NON_INSERT_COMBINE } from '../modules/local/crisprvariants_combine'
+include { CRISPRVARIANTS as CRISPRVARIANTS_BWA_UMI_5_COMBINE } from '../modules/local/crisprvariants_combine'
+include { CRISPRVARIANTS as CRISPRVARIANTS_BWA_UMI_5_INSERT_COMBINE } from '../modules/local/crisprvariants_combine'
+include { CRISPRVARIANTS as CRISPRVARIANTS_BWA_UMI_5_NON_INSERT_COMBINE } from '../modules/local/crisprvariants_combine'
+
 include { CRISPRVARIANTS as CRISPRVARIANTS_BWA_UMI_1_INSERT } from '../modules/local/crisprvariants'
 include { CRISPRVARIANTS as CRISPRVARIANTS_BWA_UMI_1_NON_INSERT } from '../modules/local/crisprvariants'
 include { CRISPRVARIANTS as CRISPRVARIANTS_BWA_UMI_5 } from '../modules/local/crisprvariants'
@@ -326,10 +332,6 @@ workflow SIKIPIPE {
       params.guide_bed,
       "05b_crisprvariants_bwa_umi_1/all_reads"
     )
-    //
-    // BAM_COMBINE_BWA_UMI_1 (
-    //   BWA_UMI_1.out.bam_pure.collect()
-    // )
 
     CRISPRVARIANTS_BWA_UMI_1_COMBINE (
       BWA_UMI_1.out.bam_pure.collect(),
@@ -347,12 +349,25 @@ workflow SIKIPIPE {
       "05b_crisprvariants_bwa_umi_1/insert_reads"
     )
 
+    CRISPRVARIANTS_BWA_UMI_1_INSERT_COMBINE (
+      BWA_UMI_1.out.bam_insert_pure.collect(),
+      PREP_REF.out.ref,
+      params.guide_bed,
+      "05b_crisprvariants_bwa_umi_1/insert_reads/combine"
+    )
+
     // Mappable reads and without insert
     CRISPRVARIANTS_BWA_UMI_1_NON_INSERT (
       BWA_UMI_1.out.bam_non_insert,
       PREP_REF_2.out.ref,
       params.guide_bed2,
       "05b_crisprvariants_bwa_umi_1/non_insert_reads"
+    )
+    CRISPRVARIANTS_BWA_UMI_1_NON_INSERT_COMBINE (
+      BWA_UMI_1.out.bam_non_insert_pure.collect(),
+      PREP_REF.out.ref,
+      params.guide_bed,
+      "05b_crisprvariants_bwa_umi_1/non_insert_reads/combine"
     )
 
 

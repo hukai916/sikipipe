@@ -22,7 +22,7 @@ process CRISPRVARIANTS {
     def chimera_to_target = task.ext.chimera_to_target ?: ''
     def top_n = task.ext.top_n ?: ''
 
-    def prefix = "prefix_token"
+    def prefix = "all_condition"
     """
     #!/usr/bin/env Rscript
 
