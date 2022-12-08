@@ -1,5 +1,4 @@
 process CRISPRVARIANTS {
-    tag "$meta.id"
     label 'process_low'
 
     container "hukai916/crisprvariants:0.1"
