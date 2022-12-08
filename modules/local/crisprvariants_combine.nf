@@ -52,7 +52,7 @@ process CRISPRVARIANTS {
     reference <- Biostrings::DNAString(reference)
 
       # Step3: create crispr_set
-    bam_fname <- "$bam"
+    bam_fname <- list.files(pattern = "bam\$")
 
     tryCatch(
       {

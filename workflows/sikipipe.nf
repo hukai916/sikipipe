@@ -70,7 +70,7 @@ include { PRECISE_INSERT as PRECISE_INSERT_UMI_5 } from '../modules/local/precis
 include { CRISPRVARIANTS as CRISPRVARIANTS_UMI_1 } from '../modules/local/crisprvariants'
 include { CRISPRVARIANTS as CRISPRVARIANTS_UMI_5 } from '../modules/local/crisprvariants'
 include { CRISPRVARIANTS as CRISPRVARIANTS_BWA_UMI_1 } from '../modules/local/crisprvariants'
-include { BAM_COMBINE as BAM_COMBINE_BWA_UMI_1   } from '../modules/local/bam_combine'
+// include { BAM_COMBINE as BAM_COMBINE_BWA_UMI_1   } from '../modules/local/bam_combine'
 include { CRISPRVARIANTS as CRISPRVARIANTS_BWA_UMI_1_COMBINE } from '../modules/local/crisprvariants_combine'
 include { CRISPRVARIANTS as CRISPRVARIANTS_BWA_UMI_1_INSERT } from '../modules/local/crisprvariants'
 include { CRISPRVARIANTS as CRISPRVARIANTS_BWA_UMI_1_NON_INSERT } from '../modules/local/crisprvariants'
@@ -326,13 +326,13 @@ workflow SIKIPIPE {
       params.guide_bed,
       "05b_crisprvariants_bwa_umi_1/all_reads"
     )
-
-    BAM_COMBINE_BWA_UMI_1 (
-      BWA_UMI_1.out.bam_pure.collect()
-    )
+    //
+    // BAM_COMBINE_BWA_UMI_1 (
+    //   BWA_UMI_1.out.bam_pure.collect()
+    // )
 
     CRISPRVARIANTS_BWA_UMI_1_COMBINE (
-      BAM_COMBINE_BWA_UMI_1.out.bam,
+      BWA_UMI_1.out.bam_pure.collect(),
       PREP_REF.out.ref,
       params.guide_bed,
       "05b_crisprvariants_bwa_umi_1/all_reads/combine"
