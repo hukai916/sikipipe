@@ -71,7 +71,7 @@ include { CRISPRVARIANTS as CRISPRVARIANTS_UMI_1 } from '../modules/local/crispr
 include { CRISPRVARIANTS as CRISPRVARIANTS_UMI_5 } from '../modules/local/crisprvariants'
 include { CRISPRVARIANTS as CRISPRVARIANTS_BWA_UMI_1 } from '../modules/local/crisprvariants'
 include { BAM_COMBINE as BAM_COMBINE_BWA_UMI_1   } from '../modules/local/bam_combine'
-include { CRISPRVARIANTS as CRISPRVARIANTS_BWA_UMI_1_COMBINE } from '../modules/local/crisprvariants'
+include { CRISPRVARIANTS as CRISPRVARIANTS_BWA_UMI_1_COMBINE } from '../modules/local/crisprvariants_combine'
 include { CRISPRVARIANTS as CRISPRVARIANTS_BWA_UMI_1_INSERT } from '../modules/local/crisprvariants'
 include { CRISPRVARIANTS as CRISPRVARIANTS_BWA_UMI_1_NON_INSERT } from '../modules/local/crisprvariants'
 include { CRISPRVARIANTS as CRISPRVARIANTS_BWA_UMI_5 } from '../modules/local/crisprvariants'
