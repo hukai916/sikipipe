@@ -7,13 +7,13 @@ process BAM_COMBINE {
     path bam
 
     output:
-    tuple val("token"), path("combined/combined.bam"),     emit: bam
+    tuple val(["id":"id_token"]), path("combined/combined.bam"),     emit: bam
 
     script:
 
     """
     mkdir combined # in case some raw bam files are named combined
-    touch combined/test.bam
+    samtools merge combined/combined.bam *.bam
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
