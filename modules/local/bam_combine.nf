@@ -7,9 +7,12 @@ process BAM_COMBINE {
     path bam
 
     output:
-    tuple val([id:"id_token"]), path("combined/combined.bam"),     emit: bam
+    tuple val(meta), path("combined/combined.bam"),     emit: bam
 
     script:
+
+    def meta = [:]
+    meta.id = "id_token"
 
     """
     mkdir combined # in case some raw bam files are named combined
