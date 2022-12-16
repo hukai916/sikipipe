@@ -53,10 +53,18 @@ process CRISPRVARIANTS {
 
       # Step3: create crispr_set
     bam_fname <- list.files(pattern = "bam\$")
+      # get rid of empty bam files
+    bam_fname2 <- c()
+    for (bam in bam_fname) {
+    	bam_c <- system(sprintf(paste0("samtools view -c ", bam)), intern = TRUE)
+    	if (bam_c > 0) {
+    		bam_fname2 <- c(bam_fname2, bam)
+    	}
+    }
 
     tryCatch(
       {
-        crispr_set <- readsToTarget(bam_fname,
+        crispr_set <- readsToTarget(bam_fname2,
                                     target = gdl,
                                     reference = reference,
                                     chimera.to.target = $chimera_to_target, # allow larger gaps
