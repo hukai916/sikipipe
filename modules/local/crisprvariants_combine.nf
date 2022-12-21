@@ -68,7 +68,8 @@ process CRISPRVARIANTS {
                                     target = gdl,
                                     reference = reference,
                                     chimera.to.target = $chimera_to_target, # allow larger gaps
-                                    target.loc = zero_coordinate)
+                                    target.loc = zero_coordinate,
+                                    chimeras = "ignore")
         vc <- variantCounts(crispr_set)
 
           # Step4: plot variants
