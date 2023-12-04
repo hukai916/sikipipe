@@ -29,8 +29,8 @@ sample_name     = sys.argv[2]
 outfile_normal  = sys.argv[3]
 outfile_abnormal = sys.argv[4]
 outfile_stat     = sys.argv[5]
-univ_3p          = sys.argv[6]
-univ_5p          = sys.argv[7]
+univ_5p          = sys.argv[6]
+univ_3p          = sys.argv[7]
 
 oligo = {}
 oligo["univ_3p"] = univ_3p

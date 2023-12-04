@@ -17,15 +17,15 @@ process PREPROCESS {
     task.ext.when == null || task.ext.when
 
     script:
-    def univ_3p = task.ext.univ_3p ?: ''
     def univ_5p = task.ext.univ_5p ?: ''
-    def prefix = task.ext.prefix ?: "${meta.id}"
+    def univ_3p = task.ext.univ_3p ?: ''
+    def prefix  = task.ext.prefix ?: "${meta.id}"
 
     """
     mkdir -p $outdir/reads_normal $outdir/reads_abnormal $outdir/stat
     touch $outdir/stat/${prefix}.csv
 
-    prep_data.py $reads $prefix ${outdir}/reads_normal/${prefix}.fastq.gz ${outdir}/reads_abnormal/${prefix}.fastq.gz $outdir/stat/${prefix}.csv $univ_3p $univ_5p
+    prep_data.py $reads $prefix ${outdir}/reads_normal/${prefix}.fastq.gz ${outdir}/reads_abnormal/${prefix}.fastq.gz $outdir/stat/${prefix}.csv $univ_5p $univ_3p 
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

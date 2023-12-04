@@ -144,10 +144,10 @@ workflow SIKIPIPE {
       )
     ch_versions = ch_versions.mix(CAT_STAT_PREPROCESS.out.versions)
 
-    // MODULE: cutadapt: trim off 5p universal primer
+    // MODULE: cutadapt: trim off 5p and 3p universal primer
     CUTADAPT (
       PREPROCESS.out.reads_normal,
-      "01b_cutadapt_5p"
+      "01b_cutadapt_5p_3p"
       )
     ch_versions = ch_versions.mix(CUTADAPT.out.versions)
 
